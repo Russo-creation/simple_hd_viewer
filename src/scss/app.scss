@@ -3,4 +3,12 @@
   width: 100%;
   overflow: hidden;
   background: red;
+  outline: "none";
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  outline: none;
+  border: none;
 }

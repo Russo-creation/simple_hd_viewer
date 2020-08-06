@@ -10,7 +10,9 @@ import {
 } from "react-three-fiber";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Lights from "./lights/Ligths";
+
 import Mesh from "./mesh/Mesh";
+import HDRI from "./hdri/HDRI";
 
 extend({ OrbitControls });
 
@@ -32,7 +34,13 @@ const ThreeInit = () => {
   return (
     <>
       <Canvas
-        style={{ height: "100vh", width: "100vw" }}
+        style={{
+          height: "100vh",
+          width: "100vw",
+          overflow: "hidden",
+          outline: "none",
+          border: "none",
+        }}
         concurrent
         pixelRatio={window.devicePixelRatio}
         camera={{ position: [0, 0, 6.5] }}
@@ -47,10 +55,8 @@ const ThreeInit = () => {
           enablePan={true}
           dampingFactor={0.05}
           rotateSpeed={1.1}
-          minPolarAngle={Math.PI / 3.5}
-          maxPolarAngle={Math.PI / 1.9}
         />
-
+        <HDRI />
         <Lights />
         <Mesh />
       </Canvas>
