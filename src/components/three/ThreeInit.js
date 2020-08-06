@@ -47,6 +47,7 @@ const ThreeInit = () => {
         pixelRatio={window.devicePixelRatio}
         camera={{ position: [0, 0, 6.5] }}
         onCreated={({ gl }) => {
+          gl.setClearColor("#171720");
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.outputEncoding = THREE.sRGBEncoding;
         }}
