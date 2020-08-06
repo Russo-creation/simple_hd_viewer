@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, Suspense } from "react";
 import * as THREE from "three";
 import {
   Canvas,
@@ -13,6 +13,8 @@ import Lights from "./lights/Ligths";
 
 import Mesh from "./mesh/Mesh";
 import HDRI from "./hdri/HDRI";
+
+import Effects from "./effects/Effects.js";
 
 extend({ OrbitControls });
 
@@ -56,9 +58,14 @@ const ThreeInit = () => {
           dampingFactor={0.05}
           rotateSpeed={1.1}
         />
-        <HDRI />
+
         <Lights />
-        <Mesh />
+
+        <Suspense fallback={<Dom center>loading...</Dom>}>
+          <HDRI />
+          <Mesh />
+          <Effects />
+        </Suspense>
       </Canvas>
     </>
   );

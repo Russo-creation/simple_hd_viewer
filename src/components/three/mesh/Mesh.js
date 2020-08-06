@@ -1,28 +1,23 @@
-import React, { useMemo } from "react";
-import * as THREE from "three";
+import React from "react";
 
-const Mesh = () => {
-  /* const boxMateral = () => {
-    return new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#2a2a2a"),
-      roughness: 1,
-      metalness: 0.0,
-    });
-  }; */
-
-  const color = new THREE.Color("#2a2a2a");
-
-  const material = useMemo(
-    () =>
-      new THREE.MeshStandardMaterial({ color, roughness: 1, metalness: 0.5 }),
-    [color]
-  );
-
+export default function Sphere(props) {
   return (
-    <mesh position={[0, 0, 0]} material={material}>
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+    <mesh>
+      <sphereBufferGeometry attach="geometry" args={[1.5, 64, 64]} />
+      <meshPhysicalMaterial
+        attach="material"
+        clearcoat={1.0}
+        clearcoatRoughness={0}
+        metalness={0.9}
+        roughness={0.1}
+        color={"blue"}
+        /* normalMap={normalMap}
+          normalScale={[0.3, 0.3]}
+          normalMap-wrapS={THREE.RepeatWrapping}
+          normalMap-wrapT={THREE.RepeatWrapping}
+          normalMap-repeat={[20, 20]} */
+        //normalMap-anisotropy={16}
+      />
     </mesh>
   );
-};
-
-export default Mesh;
+}
