@@ -32,15 +32,15 @@ export default function Effects() {
     const bloom = new BloomEffect({
       blendFunction: BlendFunction.ADD,
       kernelSize: KernelSize.HUGE,
-      luminanceThreshold: 0,
-      height: 600,
+      luminanceThreshold: 0.1,
+      height: 400,
     });
     bloom.blendMode.opacity.value = 1;
     const bokehEffect = new BokehEffect({
-      focus: 10,
-      dof: 0.05,
-      aperture: 3 * 0.00001,
-      maxBlur: 1,
+      focus: 60,
+      dof: 10,
+      aperture: 0.1,
+      maxBlur: 0.015,
     });
     composer.addPass(new EffectPass(camera, bokehEffect));
     const effectPass = new EffectPass(

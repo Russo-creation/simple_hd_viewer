@@ -1,19 +1,32 @@
 import * as THREE from "three";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 import { useLoader } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 import ZipLoader from "zip-loader";
-import zipfile from "./envy 41.zip";
+import zipfile from "./room.zip";
 
 export default function Sphere(props) {
   const [Url, setUrl] = useState();
   useEffect(() => {
-    var loader = new ZipLoader(zipfile);
-    loader.load().then(() => {
+    /* var loader = new ZipLoader(zipfile);
+    loader.load(console.log("tst")).then(() => {
       setUrl(loader.extractAsBlobUrl("envy 41.glb", ""));
+    }); */
+
+    ZipLoader.install({ THREE: THREE });
+
+    let zipLoad = new ZipLoader(zipfile);
+    zipLoad.on("progress", (event) => {
+      console.log(event);
     });
+
+    zipLoad.on("load", (event) => {
+      setUrl(zipLoad.extractAsBlobUrl("room.glb", ""));
+    });
+
+    zipLoad.load();
   }, []);
 
   return (
@@ -24,21 +37,50 @@ export default function Sphere(props) {
 const Objects = (props) => {
   const { nodes } = useLoader(GLTFLoader, props.path, (loader) => {});
 
+  console.log(nodes);
+
+  const material = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "blue" }),
+    []
+  );
+
   return (
-    <mesh
-      scale={[1.0, 1.0, 1.0]}
-      position={[0, 0, 0]}
-      geometry={nodes["Sphere.000_1"].geometry}
-      rotation={[-0.61, 0, 0]}
-    >
-      <meshPhysicalMaterial
-        attach="material"
-        clearcoat={0.2}
-        clearcoatRoughness={0.6}
-        metalness={0.5}
-        roughness={0.5}
-        color="black"
-      />
-    </mesh>
+    <>
+      <mesh
+        scale={[1.0, 1.0, 1.0]}
+        position={[0, 0, 0]}
+        geometry={nodes["wall"].geometry}
+        rotation={[0, 0, 0]}
+        material={material}
+      ></mesh>
+      <mesh
+        scale={[1.0, 1.0, 1.0]}
+        position={[0, 0, 0]}
+        geometry={nodes["window"].geometry}
+        rotation={[0, 0, 0]}
+        material={material}
+      ></mesh>
+      <mesh
+        scale={[1.0, 1.0, 1.0]}
+        position={[0, 0, 0]}
+        geometry={nodes["plant"].geometry}
+        rotation={[0, 0, 0]}
+        material={material}
+      ></mesh>
+      <mesh
+        scale={[1.0, 1.0, 1.0]}
+        position={[0, 0, 0]}
+        geometry={nodes["blind"].geometry}
+        rotation={[0, 0, 0]}
+        material={material}
+      ></mesh>
+      <mesh
+        scale={[1.0, 1.0, 1.0]}
+        position={[0, 0, 0]}
+        geometry={nodes["table"].geometry}
+        rotation={[0, 0, 0]}
+        material={material}
+      ></mesh>
+    </>
   );
 };
