@@ -1,18 +1,33 @@
-import React, { useRef, useState, useEffect } from "react";
+import * as THREE from "three";
+import React, { useState, useEffect } from "react";
+
 import { useLoader } from "react-three-fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
-import file from "./envy 41.glb";
+import ZipLoader from "zip-loader";
+import zipfile from "./envy 41.zip";
 
 export default function Sphere(props) {
-  const { nodes } = useLoader(GLTFLoader, file, (loader) => {});
+  const [Url, setUrl] = useState();
+  useEffect(() => {
+    var loader = new ZipLoader(zipfile);
+    loader.load().then(() => {
+      setUrl(loader.extractAsBlobUrl("envy 41.glb", ""));
+    });
+  }, []);
 
-  console.log(nodes["Sphere.000_0"].geometry);
+  return (
+    <group position={[0, 0, 0]}>{Url ? <Objects path={Url} /> : null}</group>
+  );
+}
+
+const Objects = (props) => {
+  const { nodes } = useLoader(GLTFLoader, props.path, (loader) => {});
 
   return (
     <mesh
-      scale={[1.7, 1.7, 1.7]}
-      position={[0, -0.75, 0]}
+      scale={[1.0, 1.0, 1.0]}
+      position={[0, 0, 0]}
       geometry={nodes["Sphere.000_1"].geometry}
       rotation={[-0.61, 0, 0]}
     >
@@ -23,13 +38,7 @@ export default function Sphere(props) {
         metalness={0.5}
         roughness={0.5}
         color="black"
-        /* normalMap={texture}
-          normalScale={[0.5, 0.5]}
-          normalMap-wrapS={THREE.RepeatWrapping}
-          normalMap-wrapT={THREE.RepeatWrapping}
-          normalMap-repeat={[30, 30]}
-          normalMap-anisotropy={16} */
       />
     </mesh>
   );
-}
+};

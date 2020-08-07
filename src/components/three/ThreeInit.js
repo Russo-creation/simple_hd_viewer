@@ -1,13 +1,6 @@
-import React, { useRef, useEffect, Suspense } from "react";
+import React, { useRef, Suspense } from "react";
 import * as THREE from "three";
-import {
-  Canvas,
-  Dom,
-  extend,
-  useThree,
-  useLoader,
-  useFrame,
-} from "react-three-fiber";
+import { Canvas, Dom, extend, useThree, useFrame } from "react-three-fiber";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Lights from "./lights/Ligths";
 
