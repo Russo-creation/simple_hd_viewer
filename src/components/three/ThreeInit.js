@@ -41,9 +41,10 @@ const ThreeInit = () => {
         camera={{ position: [0, 0, 1], near: 0.01, far: 20 }}
         gl={{ antialias: false }}
         onCreated={({ gl }) => {
-          gl.setClearColor("#171720");
+          gl.setClearColor("black");
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.outputEncoding = THREE.sRGBEncoding;
+          gl.toneMappingExposure = 0.7;
         }}
       >
         <Controls

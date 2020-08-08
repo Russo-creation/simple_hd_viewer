@@ -9,9 +9,14 @@ import {
   EffectPass,
   RenderPass,
   SMAAEffect,
-  GammaCorrectionEffect,
+  TextureEffect,
+  VignetteEffect,
   BokehEffect,
 } from "postprocessing";
+
+import { TextureLoader } from "three";
+
+import scratchesTextureURL from "./scratches.jpg";
 
 // Fix smaa loader signature
 // Will not be neccessary next version: https://github.com/vanruesc/postprocessing/commit/f05bb85fc9548458ee5e4a24026f308f0a8b72d4
@@ -21,6 +26,7 @@ SMAAImageLoader.prototype.load = function (_, set) {
 };
 
 export default function Effects() {
+  const scratchesTexture = useLoader(TextureLoader, scratchesTextureURL);
   const { gl, scene, camera, size } = useThree();
   const smaa = useLoader(SMAAImageLoader);
   const composer = useMemo(() => {
@@ -28,26 +34,39 @@ export default function Effects() {
     composer.addPass(new RenderPass(scene, camera));
     const smaaEffect = new SMAAEffect(...smaa);
     smaaEffect.colorEdgesMaterial.setEdgeDetectionThreshold(0.1);
-    const gammaCorrection = new GammaCorrectionEffect();
-    const bloom = new BloomEffect({
-      blendFunction: BlendFunction.ADD,
-      kernelSize: KernelSize.HUGE,
-      luminanceThreshold: 0.1,
-      height: 400,
+
+    const textureEffect = new TextureEffect({
+      blendFunction: BlendFunction.COLOR_DODGE,
+      texture: scratchesTexture,
     });
-    bloom.blendMode.opacity.value = 1;
+    textureEffect.blendMode.opacity.value = 0.15;
+
+    const vignetteEffect = new VignetteEffect({
+      eskil: false,
+      offset: 0.35,
+      darkness: 0.75,
+    });
+
+    const bloom = new BloomEffect({
+      blendFunction: BlendFunction.SCREEN,
+      kernelSize: KernelSize.MEDIUM,
+      luminanceThreshold: 0.1,
+      height: 600,
+    });
+    bloom.blendMode.opacity.value = 0.2;
     const bokehEffect = new BokehEffect({
-      focus: 60,
-      dof: 10,
-      aperture: 0.1,
-      maxBlur: 0.015,
+      focus: 0.009,
+      dof: 0.002,
+      aperture: 0.5,
+      maxBlur: 0.01,
     });
     composer.addPass(new EffectPass(camera, bokehEffect));
     const effectPass = new EffectPass(
       camera,
-      gammaCorrection,
+      textureEffect,
       smaaEffect,
-      bloom
+      bloom,
+      vignetteEffect
     );
     effectPass.renderToScreen = true;
     composer.addPass(effectPass);

@@ -3,11 +3,11 @@ import React from "react";
 const Lights = () => {
   return (
     <group>
-      <pointLight intensity={0.3} />
-      <ambientLight intensity={2} />
+      {/* <pointLight intensity={0.4} /> */}
+      {/* <ambientLight intensity={2} /> */}
       <spotLight
         castShadow
-        intensity={0.2}
+        intensity={0.1}
         angle={Math.PI / 7}
         position={[150, 150, 250]}
         penumbra={1}
