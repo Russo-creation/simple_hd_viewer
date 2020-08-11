@@ -22,7 +22,8 @@ const Sphere = (props) => {
 
     let zipLoad = new ZipLoader(zipfile);
     zipLoad.on("progress", (event) => {
-      //  console.log(event);
+      //console.log(event);
+      props.onLoadingProgress((event.loaded / event.total) * 100);
     });
 
     zipLoad.on("load", (event) => {
