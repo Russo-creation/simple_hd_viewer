@@ -4,10 +4,21 @@ import "./scss/index.scss";
 import App from "./pages/App";
 import * as serviceWorker from "./serviceWorker";
 
+import { createStore, combineReducers } from "redux";
+import { Provider } from "react-redux";
+
+import loadingReducer from "./store/reducers/loading";
+
+const rootReducer = combineReducers({
+  loader: loadingReducer,
+});
+
+const store = createStore(rootReducer);
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 

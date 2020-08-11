@@ -7,7 +7,10 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import ZipLoader from "zip-loader";
 import zipfile from "./room.zip";
 
-export default function Sphere(props) {
+import { connect } from "react-redux";
+import * as actionTypes from "../../../store/actions";
+
+const Sphere = (props) => {
   const [Url, setUrl] = useState();
   useEffect(() => {
     /* var loader = new ZipLoader(zipfile);
@@ -34,7 +37,7 @@ export default function Sphere(props) {
       {Url ? <Objects path={Url} /> : null}
     </group>
   );
-}
+};
 
 const Objects = (props) => {
   //loading gltf file from blop zip
@@ -155,3 +158,20 @@ const Objects = (props) => {
     </>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    loadingTotalSize: state.loader.loadingTotalSize,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadingProgress: (value) =>
+      dispatch({ type: actionTypes.LoadingSceneProgress, progress: value }),
+    onLoadingSceneFinish: () =>
+      dispatch({ type: actionTypes.LoadingSceneFinished }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Sphere));
