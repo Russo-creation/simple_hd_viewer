@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/simple_hd_viewer/static/css/main.d4618e7f.chunk.css",
+    "main.js": "/simple_hd_viewer/static/js/main.984d14c2.chunk.js",
+    "main.js.map": "/simple_hd_viewer/static/js/main.984d14c2.chunk.js.map",
+    "runtime-main.js": "/simple_hd_viewer/static/js/runtime-main.00cba046.js",
+    "runtime-main.js.map": "/simple_hd_viewer/static/js/runtime-main.00cba046.js.map",
+    "static/js/2.6f908bcc.chunk.js": "/simple_hd_viewer/static/js/2.6f908bcc.chunk.js",
+    "static/js/2.6f908bcc.chunk.js.map": "/simple_hd_viewer/static/js/2.6f908bcc.chunk.js.map",
+    "index.html": "/simple_hd_viewer/index.html",
+    "precache-manifest.bfcbd48e54657aabc16e78f6c1748353.js": "/simple_hd_viewer/precache-manifest.bfcbd48e54657aabc16e78f6c1748353.js",
+    "service-worker.js": "/simple_hd_viewer/service-worker.js",
+    "static/css/main.d4618e7f.chunk.css.map": "/simple_hd_viewer/static/css/main.d4618e7f.chunk.css.map",
+    "static/js/2.6f908bcc.chunk.js.LICENSE.txt": "/simple_hd_viewer/static/js/2.6f908bcc.chunk.js.LICENSE.txt",
+    "static/media/cave_wall_1k.hdr": "/simple_hd_viewer/static/media/cave_wall_1k.068c0259.hdr",
+    "static/media/room.zip": "/simple_hd_viewer/static/media/room.a8f21fd9.zip",
+    "static/media/scratches.jpg": "/simple_hd_viewer/static/media/scratches.0f067bff.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.00cba046.js",
+    "static/js/2.6f908bcc.chunk.js",
+    "static/css/main.d4618e7f.chunk.css",
+    "static/js/main.984d14c2.chunk.js"
+  ]
+}
