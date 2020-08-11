@@ -3,6 +3,7 @@ import * as actionTypes from "../actions";
 const intialState = {
   loadingFnished: false,
   loadingTotalSize: 0,
+  loadingLoadedSize: 0,
   loadingProgress: 0,
 };
 
@@ -12,7 +13,14 @@ const reducer = (state = intialState, action) => {
       return { ...state, loadingFnished: true };
 
     case actionTypes.LoadingSceneProgress:
-      return { ...state, loadingProgress: action.progress.toFixed(1) * 1 };
+      let progress = (action.loadedSize / action.totalSize) * 100;
+
+      return {
+        ...state,
+        loadingTotalSize: action.totalSize,
+        loadingLoadedSize: action.loadedSize,
+        loadingProgress: progress.toFixed(1) * 1,
+      };
 
     default:
       return { ...state };

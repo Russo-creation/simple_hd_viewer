@@ -5,7 +5,19 @@ import Loader from "../components/hud/Loader";
 import { connect } from "react-redux";
 
 const App = (props) => {
-  console.log(props.loadingProgress);
+  const {
+    loadingFnished,
+    loadingTotalSize,
+    loadingLoadedSize,
+    loadingProgress,
+  } = props;
+
+  console.log(
+    loadingFnished,
+    loadingTotalSize,
+    loadingLoadedSize,
+    loadingProgress
+  );
   return (
     <div className="App">
       <ThreeInit />
@@ -16,6 +28,9 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    loadingFnished: state.loader.loadingFnished,
+    loadingTotalSize: state.loader.loadingTotalSize,
+    loadingLoadedSize: state.loader.loadingLoadedSize,
     loadingProgress: state.loader.loadingProgress,
   };
 };
