@@ -15,10 +15,13 @@ function Controls(props) {
   const { camera, gl } = useThree();
   const ref = useRef();
   useFrame(() => ref.current.update());
+  // useFrame(() => console.log(ref.current.object.position)); //camera position
+  //useFrame(() => console.log(ref.current.object.rotation));
+
   return (
     <orbitControls
       ref={ref}
-      target={[0, 0, 0]}
+      target={[-0.9167080496646348, -0.021711392885923757, -0.6397823492796839]}
       {...props}
       args={[camera, gl.domElement]}
     />
@@ -38,7 +41,15 @@ const ThreeInit = () => {
         }}
         concurrent
         pixelRatio={window.devicePixelRatio}
-        camera={{ position: [0, 0, 1], near: 0.01, far: 20 }}
+        camera={{
+          position: [
+            -0.6182916979852157,
+            0.003437048993761152,
+            -0.6852449367690211,
+          ],
+          near: 0.01,
+          far: 20,
+        }}
         gl={{ antialias: false }}
         onCreated={({ gl }) => {
           gl.setClearColor("black");

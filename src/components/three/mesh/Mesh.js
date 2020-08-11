@@ -19,7 +19,7 @@ export default function Sphere(props) {
 
     let zipLoad = new ZipLoader(zipfile);
     zipLoad.on("progress", (event) => {
-      console.log(event);
+      //  console.log(event);
     });
 
     zipLoad.on("load", (event) => {
@@ -40,7 +40,7 @@ const Objects = (props) => {
   //loading gltf file from blop zip
   const { nodes } = useLoader(GLTFLoader, props.path, (loader) => {});
 
-  console.log(nodes);
+  // console.log(nodes);
 
   /* const material = useMemo(
     () => new THREE.MeshPhongMaterial({ color: "white", refractionRatio: 0.8 }),
@@ -57,23 +57,28 @@ const Objects = (props) => {
 
   //editing specific material in mesh
 
+  nodes["spiderweeb"].material.transparent = true;
+  nodes["spiderweeb"].material.depthWrite = false;
+  //nodes["spiderweeb"].material.alphaTest = 0.01;
+  nodes["spiderweeb"].material.side = THREE.DoubleSide;
+
   nodes["plant"].children[0].material.transparent = true;
   nodes["plant"].children[0].material.depthWrite = false;
   nodes["plant"].children[1].material.transparent = true;
   nodes["plant"].children[1].material.depthWrite = false;
 
-  nodes["label1"].material.transparent = true;
-  nodes["label1"].material.depthWrite = false;
+  nodes["atlas"].material.transparent = true;
+  nodes["atlas"].material.depthWrite = false;
 
-  nodes["label2"].material.transparent = true;
-  nodes["label2"].material.depthWrite = false;
-
-  nodes["bottle1"].material.transparent = true;
-  nodes["bottle1"].material.depthWrite = false;
-  nodes["bottle1"].material.opacity = 0.23;
+  nodes["bottle"].material.transparent = true;
+  nodes["bottle"].material.opacity = 0.96;
 
   return (
     <>
+      <mesh
+        geometry={nodes["atlas"].geometry}
+        material={nodes["atlas"].material}
+      ></mesh>
       <mesh
         geometry={nodes["plant"].children[0].geometry}
         material={nodes["plant"].children[0].material}
@@ -83,20 +88,17 @@ const Objects = (props) => {
         material={nodes["plant"].children[1].material}
       ></mesh>
       <mesh
+        geometry={nodes["bottle"].geometry}
+        material={nodes["bottle"].material}
+      ></mesh>
+      <mesh
+        geometry={nodes["spiderweeb"].geometry}
+        material={nodes["spiderweeb"].material}
+      ></mesh>
+
+      <mesh
         geometry={nodes["beam"].geometry}
         material={nodes["beam"].material}
-      ></mesh>
-      <mesh
-        geometry={nodes["bottle1"].geometry}
-        material={nodes["bottle1"].material}
-      ></mesh>
-      <mesh
-        geometry={nodes["bottle2"].geometry}
-        material={nodes["bottle2"].material}
-      ></mesh>
-      <mesh
-        geometry={nodes["coin"].geometry}
-        material={nodes["coin"].material}
       ></mesh>
       <mesh
         geometry={nodes["curtine"].geometry}
@@ -104,25 +106,18 @@ const Objects = (props) => {
       ></mesh>
 
       <mesh
-        geometry={nodes["label1"].geometry}
-        material={nodes["label1"].material}
-      ></mesh>
-      <mesh
-        geometry={nodes["label2"].geometry}
-        material={nodes["label2"].material}
-      ></mesh>
-      <mesh
-        geometry={nodes["liquid1"].geometry}
-        material={nodes["liquid1"].material}
+        geometry={nodes["label"].geometry}
+        material={nodes["label"].material}
       ></mesh>
 
       <mesh
-        geometry={nodes["plug1"].geometry}
-        material={nodes["plug1"].material}
+        geometry={nodes["liquid"].geometry}
+        material={nodes["liquid"].material}
       ></mesh>
+
       <mesh
-        geometry={nodes["plug2"].geometry}
-        material={nodes["plug2"].material}
+        geometry={nodes["plug"].geometry}
+        material={nodes["plug"].material}
       ></mesh>
       <mesh
         geometry={nodes["rust_steel"].geometry}
@@ -144,6 +139,18 @@ const Objects = (props) => {
       <mesh
         geometry={nodes["window"].geometry}
         material={nodes["window"].material}
+      ></mesh>
+      <mesh
+        geometry={nodes["neckless"].geometry}
+        material={nodes["neckless"].material}
+      ></mesh>
+      <mesh
+        geometry={nodes["pistol_body"].geometry}
+        material={nodes["pistol_body"].material}
+      ></mesh>
+      <mesh
+        geometry={nodes["pistol_detals"].geometry}
+        material={nodes["pistol_detals"].material}
       ></mesh>
     </>
   );
