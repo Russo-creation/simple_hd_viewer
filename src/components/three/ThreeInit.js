@@ -1,10 +1,10 @@
 import React, { useRef, Suspense } from "react";
 import * as THREE from "three";
-import { Canvas, Dom, extend, useThree, useFrame } from "react-three-fiber";
+import { Canvas, extend, useThree, useFrame } from "react-three-fiber";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Lights from "./lights/Ligths";
 
-import Mesh from "./mesh/Mesh";
+import MeshLoader from "./mesh/MeshLoader";
 import HDRI from "./hdri/HDRI";
 import Fireflies from "./mesh/Fireflies";
 
@@ -14,12 +14,11 @@ import { ReactReduxContext, Provider } from "react-redux";
 
 extend({ OrbitControls });
 
-function Controls(props) {
+const Controls = (props) => {
+  //add camera controller to be able to move camera
   const { camera, gl } = useThree();
   const ref = useRef();
   useFrame(() => ref.current.update());
-  //useFrame(() => console.log(ref.current.object.position)); //camera position
-  //useFrame(() => console.log(ref.current.object.rotation));
 
   return (
     <orbitControls
@@ -29,7 +28,7 @@ function Controls(props) {
       args={[camera, gl.domElement]}
     />
   );
-}
+};
 
 const ThreeInit = () => {
   return (
@@ -73,9 +72,9 @@ const ThreeInit = () => {
 
             <Lights />
 
-            <Suspense fallback={<Dom center>loading...</Dom>}>
+            <Suspense fallback={null}>
               <HDRI />
-              <Mesh />
+              <MeshLoader />
               <Effects />
               <Fireflies />
             </Suspense>

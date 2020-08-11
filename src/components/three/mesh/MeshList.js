@@ -11,14 +11,7 @@ const MeshList = (props) => {
   //loading gltf file from blop zip
   const { nodes } = useLoader(GLTFLoader, props.path, (loader) => {});
 
-  // console.log(nodes);
-
-  /* const material = useMemo(
-    () => new THREE.MeshPhongMaterial({ color: "white", refractionRatio: 0.8 }),
-    []
-  ); */
-
-  //change in all meshes displaing side to front
+  //change in all meshes displaing material side to frontSide
   const meshArray = Object.keys(nodes);
   for (let i = 0; i < meshArray.length; i++) {
     if (typeof nodes[meshArray[i]].material !== "undefined") {
@@ -26,11 +19,10 @@ const MeshList = (props) => {
     }
   }
 
-  //editing specific material in mesh
+  //editing specific material in mesh as needed
 
   nodes["spiderweeb"].material.transparent = true;
   nodes["spiderweeb"].material.depthWrite = false;
-  //nodes["spiderweeb"].material.alphaTest = 0.01;
   nodes["spiderweeb"].material.side = THREE.DoubleSide;
 
   nodes["plant"].children[0].material.transparent = true;
@@ -44,10 +36,12 @@ const MeshList = (props) => {
   nodes["bottle"].material.transparent = true;
   nodes["bottle"].material.opacity = 0.96;
 
+  //send to redux value that loading meshes is finished
   useEffect(() => {
     props.onLoadingSceneFinish();
   });
 
+  //load all meshes from GLTF file
   return (
     <>
       <mesh

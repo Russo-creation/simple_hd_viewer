@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 const Curve = () => {
-  // tube geometry for camera movement animation
+  // tube geometry for firefly move
   let pipeSpline = new THREE.CatmullRomCurve3([
     new THREE.Vector3(14.8652, 32.9998, -6.49185),
     new THREE.Vector3(20.5216, 32.5945, 0.813831),

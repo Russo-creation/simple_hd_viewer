@@ -1,6 +1,7 @@
 import React from "react";
 
 const Lights = () => {
+  //create simple lighting in scene
   return (
     <group>
       <spotLight

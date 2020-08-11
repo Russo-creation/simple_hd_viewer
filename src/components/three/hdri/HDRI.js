@@ -12,12 +12,14 @@ export default () => {
   pmremGenerator.compileEquirectangularShader();
 
   useEffect(() => {
+    //load hdri  from file
     loader.load(HdrFile, (texture) => {
       const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 
+      //setting hdri as global reflection in materials meshes
       scene.environment = envMap;
+      //setting hdri as background image of scene
       scene.background = envMap;
-      // one can also set scene.background to envMap here
 
       texture.dispose();
       pmremGenerator.dispose();

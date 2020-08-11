@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 
 import ZipLoader from "zip-loader";
 import zipfile from "./room.zip";
@@ -9,29 +9,29 @@ import * as actionTypes from "../../../store/actions";
 
 import MeshList from "./MeshList";
 
-const Sphere = (props) => {
+const MeshLoader = (props) => {
   const [Url, setUrl] = useState();
   useEffect(() => {
-    /* var loader = new ZipLoader(zipfile);
-    loader.load(console.log("tst")).then(() => {
-      setUrl(loader.extractAsBlobUrl("envy 41.glb", ""));
-    }); */
-
+    //Zip initailization
     ZipLoader.install({ THREE: THREE });
 
     let zipLoad = new ZipLoader(zipfile);
+    //Zip progress events
     zipLoad.on("progress", (event) => {
+      //update progress value to redux
       props.onLoadingProgress(event.loaded, event.total);
-      // props.onLoadingProgress((event.loaded / event.total) * 100);
     });
 
+    //ZIp loaded event
     zipLoad.on("load", (event) => {
+      //change state when loaded and set url as blob
       setUrl(zipLoad.extractAsBlobUrl("room.glb", ""));
     });
 
     zipLoad.load();
   }, []);
 
+  //display all loaded meshes from zip
   return (
     <group rotation={[0, -Math.PI / 2.7, 0]}>
       {Url ? <MeshList path={Url} /> : null}
@@ -58,4 +58,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Sphere));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(MeshLoader));

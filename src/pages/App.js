@@ -10,6 +10,7 @@ class App extends Component {
   state = { displayLoadingWindow: true };
 
   componentDidUpdate() {
+    //change state to display loading window with delay
     if (this.props.loadingFnished) {
       setTimeout(() => {
         this.setState({

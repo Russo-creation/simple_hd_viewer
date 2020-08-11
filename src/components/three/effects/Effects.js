@@ -32,8 +32,13 @@ export default function Effects() {
   const composer = useMemo(() => {
     const composer = new EffectComposer(gl);
     composer.addPass(new RenderPass(scene, camera));
+
+    //antyaliasing postprocessing
+
     const smaaEffect = new SMAAEffect(...smaa);
     smaaEffect.colorEdgesMaterial.setEdgeDetectionThreshold(0.1);
+
+    //scratches texture postprocessing
 
     const textureEffect = new TextureEffect({
       blendFunction: BlendFunction.COLOR_DODGE,
@@ -41,11 +46,15 @@ export default function Effects() {
     });
     textureEffect.blendMode.opacity.value = 0.15;
 
+    //vignerre postprocessing
+
     const vignetteEffect = new VignetteEffect({
       eskil: false,
       offset: 0.35,
       darkness: 0.75,
     });
+
+    //bloom postprocessing
 
     const bloom = new BloomEffect({
       blendFunction: BlendFunction.SCREEN,
@@ -54,12 +63,18 @@ export default function Effects() {
       height: 600,
     });
     bloom.blendMode.opacity.value = 0.2;
+
+    //DOF postprocessing
+
     const bokehEffect = new BokehEffect({
       focus: 0.009,
       dof: 0.002,
       aperture: 0.5,
       maxBlur: 0.01,
     });
+
+    //passing postprocesing
+
     composer.addPass(new EffectPass(camera, bokehEffect));
     const effectPass = new EffectPass(
       camera,

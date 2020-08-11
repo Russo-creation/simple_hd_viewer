@@ -4,75 +4,47 @@ import * as THREE from "three";
 
 import Curve from "./Curve";
 
-const curveMoving = (
-  curveGeometry,
-  speed,
-  direction,
-  tanslationX,
-  tanslationY,
-  tanslationZ
-) => {
+const curveMoving = (curveGeometry, speed, direction) => {
+  //checking what position in curve expected
   var time = Date.now();
   var looptime = speed * 1000;
   var t = (time % looptime) / looptime;
 
+  //invert direction if needed
   if (!direction) {
     t = 1 - t;
   }
 
+  //getting exact position at cuve in time
   var pos = curveGeometry.parameters.path.getPointAt(t);
 
-  pos.x += tanslationX; //left right
-  pos.y += tanslationY; //top bottom
-  pos.z += tanslationZ; //forweward backword
+  //making small transition to displaying
+  pos.x += -902.7987733512952; //left right
+  pos.y += 150.8872503416854; //top bottom
+  pos.z += -705.830604006972; //forweward backword
   pos.multiplyScalar(0.001);
 
+  //retrunging calculated position
   return pos;
 };
 
 const Fireflies = () => {
-  //position={[-0.9027987733512952, 0.2278872503416854, -0.675830604006972]}
-
+  //converting curve to TubeBufferGeometry
   const curveGeometry = new THREE.TubeBufferGeometry(Curve(), 100, 1, 1, true);
 
+  //creating references
   const group1 = useRef();
   const group2 = useRef();
   const group3 = useRef();
 
+  //update mesh in evry frame
   useFrame((state, delta) => {
     // 1st fireflie
-    group1.current.position.copy(
-      curveMoving(
-        curveGeometry,
-        20,
-        true,
-        -902.7987733512952,
-        150.8872503416854,
-        -705.830604006972
-      )
-    );
+    group1.current.position.copy(curveMoving(curveGeometry, 20, true));
     // 2st fireflie
-    group2.current.position.copy(
-      curveMoving(
-        curveGeometry,
-        10,
-        true,
-        -902.7987733512952,
-        150.8872503416854,
-        -705.830604006972
-      )
-    );
+    group2.current.position.copy(curveMoving(curveGeometry, 10, true));
     // 3st fireflie
-    group3.current.position.copy(
-      curveMoving(
-        curveGeometry,
-        15,
-        false,
-        -902.7987733512952,
-        150.8872503416854,
-        -705.830604006972
-      )
-    );
+    group3.current.position.copy(curveMoving(curveGeometry, 15, false));
   });
 
   return (
@@ -91,6 +63,7 @@ const Fireflies = () => {
 };
 
 const FirefliesSet = () => {
+  //create mesh that imitates fireflie
   return (
     <>
       <mesh>
