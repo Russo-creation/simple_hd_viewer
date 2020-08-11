@@ -15,13 +15,13 @@ function Controls(props) {
   const { camera, gl } = useThree();
   const ref = useRef();
   useFrame(() => ref.current.update());
-  // useFrame(() => console.log(ref.current.object.position)); //camera position
+  useFrame(() => console.log(ref.current.object.position)); //camera position
   //useFrame(() => console.log(ref.current.object.rotation));
 
   return (
     <orbitControls
       ref={ref}
-      target={[-0.9167080496646348, -0.021711392885923757, -0.6397823492796839]}
+      target={[-1.0112384843663136, 0.06762010421780972, -0.6420848982973388]}
       {...props}
       args={[camera, gl.domElement]}
     />
@@ -43,9 +43,9 @@ const ThreeInit = () => {
         pixelRatio={window.devicePixelRatio}
         camera={{
           position: [
-            -0.6182916979852157,
-            0.003437048993761152,
-            -0.6852449367690211,
+            -0.703155642813053,
+            0.06158084870789878,
+            -0.7431460650269648,
           ],
           near: 0.01,
           far: 20,
