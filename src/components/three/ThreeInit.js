@@ -6,6 +6,7 @@ import Lights from "./lights/Ligths";
 
 import Mesh from "./mesh/Mesh";
 import HDRI from "./hdri/HDRI";
+import Fireflies from "./mesh/Fireflies";
 
 import Effects from "./effects/Effects.js";
 
@@ -15,7 +16,7 @@ function Controls(props) {
   const { camera, gl } = useThree();
   const ref = useRef();
   useFrame(() => ref.current.update());
-  useFrame(() => console.log(ref.current.object.position)); //camera position
+  //useFrame(() => console.log(ref.current.object.position)); //camera position
   //useFrame(() => console.log(ref.current.object.rotation));
 
   return (
@@ -72,6 +73,7 @@ const ThreeInit = () => {
           <HDRI />
           <Mesh />
           <Effects />
+          <Fireflies />
         </Suspense>
       </Canvas>
     </>
